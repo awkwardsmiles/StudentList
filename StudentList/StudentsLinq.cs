@@ -8,12 +8,12 @@ namespace StudentsLinq
     {
         public string Surname { get; set; }
         public string Forenames { get; set; }
-        public int Age { get; set; }          // age at enrolment
+        public int Age { get; set; }       
         public string Course { get; set; }
         public int Mark { get; set; }
         public int EnrolmentYear { get; set; }
 
-        // Convenience property so queries can show a full name
+        //  queries can show a full name
         public string FullName => $"{Forenames} {Surname}";
 
         // Default constructor

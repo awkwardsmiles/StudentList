@@ -9,7 +9,7 @@ static void DisplayStudentList(List<Student> studentList)
         Console.WriteLine(student);
     }
 }
-
+#region populate students
 var students = new List<Student>
 {
     new Student("Smith",  "Alice",  19, "Computer Science",     78, 2021),
@@ -28,6 +28,7 @@ var students = new List<Student>
     new Student("Ali",    "Noah",   26, "Cyber Security",       55, 2018),
     new Student("Scott",  "Olivia", 20, "Cyber Security",       80, 2024)
 };
+#endregion
 
 Console.WriteLine("All Students");
 DisplayStudentList(students);
@@ -36,23 +37,13 @@ DisplayStudentList(students);
 // 1. Filter by Course and sort by Mark (descending)
 Console.WriteLine("\n1. Computer Science students sorted by mark (highest first)");
 
-var csStudents = students
-    .Where(s => s.Course == "Computer Science")
-    .OrderByDescending(s => s.Mark)
-    .ToList();
-
-DisplayStudentList(csStudents);
+ListCsStudents(students);
 
 //==================================================================================================================
 // 2. Enrolled after 2020, sorted by enrolment year
 Console.WriteLine("\n2. Students enrolled after 2020, sorted by enrolment year");
 
-var enrolledAfter2020 = students
-    .Where(s => s.EnrolmentYear > 2020)
-    .OrderBy(s => s.EnrolmentYear)
-    .ToList();
-
-DisplayStudentList(enrolledAfter2020);
+Sortenrollment(students);
 
 //==================================================================================================================
 // 3. Average mark by course
@@ -158,3 +149,23 @@ var highestMark = students.Max(s => s.Mark);
 Console.WriteLine($"Total students: {totalStudents}");
 Console.WriteLine($"Average age: {averageAge:F1}");
 Console.WriteLine($"Highest mark: {highestMark}");
+
+static void ListCsStudents(List<Student> students)
+{
+    var csStudents = students
+        .Where(s => s.Course == "Computer Science")
+        .OrderByDescending(s => s.Mark)
+        .ToList();
+
+    DisplayStudentList(csStudents);
+}
+
+static void Sortenrollment(List<Student> students)
+{
+    var enrolledAfter2020 = students
+        .Where(s => s.EnrolmentYear > 2020)
+        .OrderBy(s => s.EnrolmentYear)
+        .ToList();
+
+    DisplayStudentList(enrolledAfter2020);
+}
