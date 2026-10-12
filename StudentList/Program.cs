@@ -49,43 +49,19 @@ Sortenrollment(students);
 // 3. Average mark by course
 Console.WriteLine("\n3. Average mark by course");
 
-var avgMarkByCourse = students
-    .GroupBy(s => s.Course)
-    .Select(g => new { Course = g.Key, AverageMark = g.Average(s => s.Mark) })
-    .OrderBy(x => x.Course)
-    .ToList();
-
-foreach (var item in avgMarkByCourse)
-{
-    Console.WriteLine($"{item.Course}: {item.AverageMark:F1}");
-}
+AVGMark(students);
 
 //==================================================================================================================
 // 4. Youngest student in each course
 Console.WriteLine("\n4. Youngest student in each course");
 
-var youngestByCourse = students
-    .GroupBy(s => s.Course)
-    .OrderBy(g => g.Key)
-    .Select(g => g.OrderBy(s => s.Age).First())
-    .ToList();
-
-DisplayStudentList(youngestByCourse);
+YngestStudent(students);
 
 //==================================================================================================================
 // 5. Count students by enrolment year
 Console.WriteLine("\n5. Number of students enrolled in each year");
 
-var countByYear = students
-    .GroupBy(s => s.EnrolmentYear)
-    .OrderBy(g => g.Key)
-    .Select(g => new { Year = g.Key, Count = g.Count() })
-    .ToList();
-
-foreach (var item in countByYear)
-{
-    Console.WriteLine($"{item.Year}: {item.Count}");
-}
+yearenrolled(students);
 
 //==================================================================================================================
 // 6. Marks between 70 and 85 (inclusive), ascending
@@ -150,6 +126,7 @@ Console.WriteLine($"Total students: {totalStudents}");
 Console.WriteLine($"Average age: {averageAge:F1}");
 Console.WriteLine($"Highest mark: {highestMark}");
 
+#region Methods
 static void ListCsStudents(List<Student> students)
 {
     var csStudents = students
@@ -169,3 +146,43 @@ static void Sortenrollment(List<Student> students)
 
     DisplayStudentList(enrolledAfter2020);
 }
+
+static void AVGMark(List<Student> students)
+{
+    var avgMarkByCourse = students
+        .GroupBy(s => s.Course)
+        .Select(g => new { Course = g.Key, AverageMark = g.Average(s => s.Mark) })
+        .OrderBy(x => x.Course)
+        .ToList();
+
+    foreach (var item in avgMarkByCourse)
+    {
+        Console.WriteLine($"{item.Course}: {item.AverageMark:F1}");
+    }
+}
+
+static void YngestStudent(List<Student> students)
+{
+    var youngestByCourse = students
+        .GroupBy(s => s.Course)
+        .OrderBy(g => g.Key)
+        .Select(g => g.OrderBy(s => s.Age).First())
+        .ToList();
+
+    DisplayStudentList(youngestByCourse);
+}
+
+static void yearenrolled(List<Student> students)
+{
+    var countByYear = students
+        .GroupBy(s => s.EnrolmentYear)
+        .OrderBy(g => g.Key)
+        .Select(g => new { Year = g.Key, Count = g.Count() })
+        .ToList();
+
+    foreach (var item in countByYear)
+    {
+        Console.WriteLine($"{item.Year}: {item.Count}");
+    }
+}
+#endregion
